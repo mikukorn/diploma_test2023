@@ -90,3 +90,4 @@ wrapt==1.14.1
 zipp==3.11.0
 zope.event==4.6
 zope.interface==5.5.2
+psycopg2==2.6.2
