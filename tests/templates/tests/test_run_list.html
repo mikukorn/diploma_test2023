@@ -1,0 +1,46 @@
+{% load static %}
+
+<ul class="list-group list-group-flush">
+    {% for value in last_results_obj %}
+
+  <li class="list-group-item" style="border-radius: 10px;">
+     <div class="build-list_status">
+
+         {% if value.0 == 'passed'  %}
+        <div class="status_status status_status-success">
+            <img src="{% static 'img/success.svg' %}"></div></div>
+      {% else %}
+      <div class="status_status status_status-failure">
+          <img src="{% static 'img/failed.svg' %}"></div></div>
+       {% endif %}
+
+
+           <div class="build_block_info"><a class="button_text" href="#"><div class="build-list_number">idwell-ui-tests #2560</div></a>
+              <div class="build-list_timing">{{ value.1 }}</div>
+           </div>
+
+  </li>
+{% endfor %}
+
+
+      <li class="list-group-item" style="border-radius: 10px;">
+     <div class="build-list_status">
+        <div class="status_status status_status-success">
+            <img src="{% static 'img/success.svg' %}"></div></div>
+           <div class="build_block_info"><a class="button_text" href="#"><div class="build-list_number">idwell-ui-tests #2597</div></a>
+              <div class="build-list_timing">2023-02-04 18:02</div>
+           </div>
+  </li>
+
+        <li class="list-group-item" style="border-radius: 10px;">
+            <div class="build-list_status">
+                <div class="status_status status_status-failure">
+                    <img src="{% static 'img/failed.svg' %}"></div></div>
+            <div class="build_block_info"><a class="button_text" href="#"><div class="build-list_number">idwell-ui-tests #2596</div></a>
+                <div class="build-list_timing">2023-02-04 11:36</div>
+            </div>
+        </li>
+
+</ul>
+
+

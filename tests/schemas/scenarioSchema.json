@@ -1,0 +1,43 @@
+{
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/product.schema.json",
+        "title": "Test case scenario",
+        "description": "Scenario for QA",
+        "type": "object",
+        "properties": {
+            "scenarioId": {
+                "description": "The unique identifier for a test-case",
+                "type": "integer"
+            },
+            "scenarioName": {
+                "description": "Unique name of the scenario",
+                "type": "string"
+            },
+            "status": {
+                "description": "The status of the scenario",
+                "type": "integer"
+            },
+            "scenarioDescription": {
+                "description": "The description of the scenario",
+                "type": "string"
+            },
+            "steps": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "title": "Step",
+                    "keys": {
+                        "stepId": {
+                            "type": "integer"
+                        },
+                        "step": {
+                            "type": "string"
+                        },
+                        "expectedResult": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }

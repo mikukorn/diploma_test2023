@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load django_jsonform %}
+
+
+{% block content %}
+
+      <section class="content">
+            <div class="wrapper">
+                <h1 class="content__title">Все сценарии:</h1>
+<!--                breadcrumps-->
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                    </ol>
+                </nav>
+
+                <div class="content__container">
+                    <div class="content__data-box content__data-box_pos_up">
+                        <p class="content__data-box-subtitle">Последние изменения</p>
+                    </div>
+
+                    <div class="content__data-box content__data-box_pos_left">
+                        <h2 class="content__data-box-title">Tecты</h2>
+                        <p class="content__data-box-subtitle">Tecты</p>
+
+
+                    </div>
+                    <div class="content__data-box content__data-box_pos_right">
+                        <h2 class="content__data-box-title">Последние изменения </h2>
+
+                        <ul class="list-group list-group-flush">
+                            {% for case in history_list_case %}
+                            <li class="list-group-item">{{ case.text }} {{ case.create_date }}</li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+            <div class="wrapper">
+                <h1 class="content__title">Все сценарии:</h1>
+<!--                breadcrumps-->
+                  <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'tests:index'%}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Все сценарии</li>
+                    </ol>
+                </nav>
+
+                <div class="content__container">
+                    <div class="content__data-box content__data-box_pos_up">
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a class="btn btn-primary" href="{% url 'tests:add_feature' %}" role="button">Добавить раздел</a>
+                            <a class="btn btn-primary" href="{% url 'tests:add_scenario' %}" role="button">Добавить сценарий</a>
+                        </div>
+                    </div>
+
+                    <div class="content__data-box content__data-box_pos_left">
+                        <h2 class="content__data-box-title">Разделы</h2>
+                        <p>
+                        {% for t in feat_list %}
+                        <p><a href="{% url 'tests:feature_list' t.slug %}">{{ t.name }}</a></p>
+                        {% endfor %}
+                    </div>
+
+
+
+                    <div class="content__data-box content__data-box_pos_right">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Название</th>
+                                <th scope="col">Статус</th>
+                                <th scope="col">Обновление</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                             {% for test in tests_list %}
+                            <tr class="position-relative">
+                                <td><b>{{ test.name }}</b></td>
+                                <td>{{ test.get_status_display }}</td>
+                                <td>{{ test.update_date }}</td>
+                                <td><a class="pb-3 stretched-link" href="{% url 'tests:get_scenario' test.id %}"></a></td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                             {# .... **Now the pagination section** .... #}
+
+                        {% if is_paginated %}
+                        <div class="pagination">
+                            <span class="page-links">
+                                {% if page_obj.has_previous %}
+                                <a href="/tests?page={{ page_obj.previous_page_number }}">previous</a>
+                                {% endif %}
+                                <span class="page-current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+
+                                {% if page_obj.has_next %}
+                                <a href="/tests?page={{ page_obj.next_page_number }}">next</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+{% endblock %}

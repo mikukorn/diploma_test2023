@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load django_jsonform %}
+
+
+{% block content %}
+
+      <section class="content">
+            <div class="wrapper">
+                <h1 class="content__title">Все запуски:</h1>
+<!--                breadcrumps-->
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                    </ol>
+                </nav>
+
+                <div class="content__container">
+                    <div class="content__data-box content__data-box_pos_up header_case">
+                        <p class="content__data-box-subtitle">Последние запуски</p>
+                        <div><button type="button" class="btn btn-dark" onclick="update_runs;">Обновить</button></div>
+                    </div>
+
+
+                </div>
+                <div class="content__data-box content__data-box_pos_right feature-scenario">
+                    <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Билд</th>
+                                <th scope="col">Статус</th>
+                                <th scope="col">Автор</th>
+                                <th scope="col">Дата</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                             {% for run in runs_list %}
+
+                             {% if run.status == 'success' %}
+                             <tr class="table-success position-relative">
+                             {% elif run.status == 'killed' %}
+                             <tr class="table-warning position-relative">
+                             {% else %}
+                             <tr class="table-danger position-relative">
+                              {% endif %}
+
+                             <td><b>{{ run.number }}</b><a class="pb-3 stretched-link" href="{{ run.get_link_in_drone }}"></a></td>
+                             <td>{{ run.status }}</td>
+                             <td>{{ run.autor_build }}</td>
+                             <td>{{ run.date_run }}</td>
+
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+
+                      {% if is_paginated %}
+                        <div class="pagination">
+                            <span class="page-links">
+                                {% if page_obj.has_previous %}
+                                <a href="/test-run?page={{ page_obj.previous_page_number }}"> << </a>
+                                {% endif %}
+                                <span class="page-current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+
+                                {% if page_obj.has_next %}
+                                <a href="/test-run?page={{ page_obj.next_page_number }}"> >> </a>
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}
+
+

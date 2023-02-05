@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load django_jsonform %}
+
+
+
+{% block content %}
+
+      <section class="content">
+            <div class="wrapper">
+                <h1 class="content__title">Все сценарии:</h1>
+<!--                breadcrumps-->
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'tests:index'%}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tests:all_scenario'%}">Все сценарии</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'tests:get_scenario' testcase.id %}">Сценарий  "{{ testcase.name }}"</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Редактирование "{{ testcase.name }}"</li>
+                    </ol>
+                </nav>
+
+                <div class="content__container">
+                    <div class="content__data-box content__data-box_pos_up">
+                        <p class="content__data-box-subtitle">Редактировать {{ testcase.name }}</p>
+                    </div>
+
+
+                    <div class="content__data-box content__data-box_pos_right feature-scenario">
+                        <form action="{% url 'tests:update_scenario' testcase.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.media }}
+                                {{ form }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Добавить</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
